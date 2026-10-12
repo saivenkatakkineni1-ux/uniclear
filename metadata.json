@@ -1,0 +1,6 @@
+{
+  "name": "UniClear - University Placement & Department No-Dues Portal",
+  "description": "Comprehensive university clearance portal for students, academic departments, library, accounts, and placement coordinators.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

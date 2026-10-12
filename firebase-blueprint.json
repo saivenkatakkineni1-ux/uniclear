@@ -1,0 +1,52 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Registered university portal user profile (Student, Department Officer, or Administrator)",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Unique Firebase Authentication UID" },
+        "email": { "type": "string", "description": "University email address", "format": "email" },
+        "displayName": { "type": "string", "description": "Full name of the user" },
+        "role": { "type": "string", "description": "Role level", "enum": ["student", "department_officer", "admin"] },
+        "studentId": { "type": "string", "description": "University Roll Number or Student ID" },
+        "department": { "type": "string", "description": "Academic department or faculty" },
+        "departmentManaged": { "type": "string", "description": "Managed office for department officer (if applicable)" },
+        "createdAt": { "type": "string", "description": "Profile creation timestamp" },
+        "updatedAt": { "type": "string", "description": "Profile last update timestamp" }
+      },
+      "required": ["uid", "email", "displayName", "role"]
+    },
+    "ClearanceRequest": {
+      "title": "ClearanceRequest",
+      "description": "Student placement and department no-dues clearance record",
+      "type": "object",
+      "properties": {
+        "studentUid": { "type": "string", "description": "UID of the student" },
+        "studentName": { "type": "string", "description": "Full student name" },
+        "studentEmail": { "type": "string", "description": "Student email address" },
+        "studentId": { "type": "string", "description": "Roll number" },
+        "studentDepartment": { "type": "string", "description": "Student academic department" },
+        "academicYear": { "type": "string", "description": "Academic graduation year" },
+        "degree": { "type": "string", "description": "Degree program (e.g. B.Tech, M.Tech, MBA)" },
+        "submissionDate": { "type": "string", "description": "Date application was initiated" },
+        "overallStatus": { "type": "string", "description": "Consolidated status", "enum": ["pending", "in_review", "approved", "rejected"] },
+        "departments": { "type": "object", "description": "Status across each clearing department" },
+        "placementNocEligible": { "type": "boolean", "description": "Whether eligible for Placement No Objection Certificate" },
+        "certificateNumber": { "type": "string", "description": "Unique verification certificate number if approved" },
+        "updatedAt": { "type": "string", "description": "Last update timestamp" }
+      },
+      "required": ["studentUid", "studentName", "studentId", "overallStatus"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profile collection with strict role-based access"
+    },
+    "/clearance_requests/{requestId}": {
+      "schema": { "$ref": "#/entities/ClearanceRequest" },
+      "description": "University no-dues clearance requests"
+    }
+  }
+}
